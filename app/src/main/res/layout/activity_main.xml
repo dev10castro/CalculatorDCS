@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="120sp"
             android:layout_marginBottom="120sp"
-            android:text="0"
+            android:hint="0"
+            android:textColor="@color/white"
             android:textAlignment="textEnd"
             android:textSize="80dp" />
 
@@ -38,6 +39,7 @@
             <!-- Primera fila de botones -->
             <TableRow>
                 <Button
+                    android:id="@+id/btnC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="C"
@@ -49,6 +51,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btnExtra"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="+/-"
@@ -61,6 +64,7 @@
 
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btnPorcentaje"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="%"
@@ -72,6 +76,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btnDivision"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="÷"
@@ -87,6 +92,7 @@
             <!-- Segunda fila de botones -->
             <TableRow>
                 <Button
+                    android:id="@+id/btn7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="7"
@@ -98,6 +104,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btn8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="8"
@@ -109,6 +116,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btn9"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="9"
@@ -120,6 +128,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btnMultiplicacion"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="x"
@@ -135,6 +144,7 @@
             <!-- Tercera fila de botones -->
             <TableRow>
                 <Button
+                    android:id="@+id/btn4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="4"
@@ -146,6 +156,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btn5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="5"
@@ -157,6 +168,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btn6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="6"
@@ -168,6 +180,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btnSuma"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="+"
@@ -183,7 +196,7 @@
             <!-- Cuarta fila de botones -->
             <TableRow>
                 <Button
-                    android:id="@+id/button1"
+                    android:id="@+id/btn1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="1"
@@ -195,6 +208,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btn2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="2"
@@ -206,6 +220,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btn3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="3"
@@ -217,6 +232,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btnResta"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="-"
@@ -232,6 +248,7 @@
             <!-- Quinta fila de botones -->
             <TableRow>
                 <Button
+                    android:id="@+id/btn0"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -243,6 +260,7 @@
                     android:layout_margin="4dp"
                     android:elevation="4dp" />
                 <Button
+                    android:id="@+id/btnPunto"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="."
@@ -255,6 +273,7 @@
                     android:elevation="4dp" />
 
                 <Button
+                    android:id="@+id/btnIgual"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="="
