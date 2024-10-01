@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,7 +32,20 @@ public class MainActivity extends AppCompatActivity {
         //creamos los botones de numeros y operaciones y les asignamos su funcion de concatenación
 
         Button btn0 = findViewById(R.id.btn0);
-        btn0.setOnClickListener(v -> calScreen.append("0"));
+        btn0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String screen = calScreen.getText().toString();
+                if (screen.equals("0")) {
+                    Toast.makeText(MainActivity.this, "No se puede poner dos ceros seguidos", Toast.LENGTH_SHORT).show();
+                } else {
+                    calScreen.append("0");
+                }
+            }
+        });
+        //si pulsamos el 0 la primera vez y lo sigue otro cero que nos informe
+        // que no se puede poner dos ceros seguidos
+
 
         Button btn1 = findViewById(R.id.btn1);
         btn1.setOnClickListener(v -> calScreen.append("1"));
@@ -87,46 +101,52 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                // Obtenemos el texto de la pantalla
                 String screen = calScreen.getText().toString();
 
-                //creamos un array para separar los numeros y la operacion
+                // Validamos si el string contiene una operación válida (+, -, *, ÷)
+                if (!screen.matches(".*[+÷*-].*")) {
+                    Toast.makeText(MainActivity.this, "Formato incorrecto", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                // Creamos un array para separar los números y la operación
                 String[] parts = screen.split("[+÷*-]");
 
-                double num1 = Double.parseDouble(parts[0]);
-                double num2 = Double.parseDouble(parts[1]);
-                double result = 0;
-                if(screen.contains("+")){
-                    result = num1 + num2;
-                }else if(screen.contains("-")){
-                    result = num1 - num2;
-                }else if(screen.contains("÷")){
-                    result = num1 / num2;
-                }else if(screen.contains("*")){
-                    result = num1 * num2;
-                }
-              // hacemos un if para que si el resultado es un numero entero no muestre decimales
-
-                int r = (int) result;
-                if (result % 1 == 0){
-
-                    calScreen.setText(String.valueOf(r));
-                }else if (result % 1 != 0){
-
-
-                    calScreen.setText(String.valueOf(r));
-
+                // Verificamos que tengamos exactamente dos números
+                if (parts.length != 2) {
+                    Toast.makeText(MainActivity.this, "Formato incorrecto", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
+                try {
+                    double num1 = Double.parseDouble(parts[0]);
+                    double num2 = Double.parseDouble(parts[1]);
+                    double result = 0;
+
+                    if (screen.contains("+")) {
+                        result = num1 + num2;
+                    } else if (screen.contains("-")) {
+                        result = num1 - num2;
+                    } else if (screen.contains("÷")) {
+                        if (num2 == 0) {
+                            Toast.makeText(MainActivity.this, "No se puede dividir por cero", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        result = num1 / num2;
+                    } else if (screen.contains("*")) {
+                        result = num1 * num2;
+                    }
+
+                    // Mostramos el resultado
+                    calScreen.setText(String.valueOf(result));
+
+                } catch (NumberFormatException e) {
+                    Toast.makeText(MainActivity.this, "Error de formato", Toast.LENGTH_SHORT).show();
+                }
             }
+
+
         });
-
-
-
-
-
-
-
-
     }
 }
