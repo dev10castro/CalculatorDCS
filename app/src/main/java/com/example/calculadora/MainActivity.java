@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * Método que se ejecuta al hacer click en un botón de numeros y operaciones
+     *  Método que se ejecuta al hacer click en un botón de numeros y operaciones
      */
     public void onClick(View v) {
 
