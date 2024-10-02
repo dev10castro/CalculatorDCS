@@ -29,7 +29,7 @@
             android:textColorHint="@color/darkgrey"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
-            android:textSize="80dp" />
+            android:textSize="55dp" />
 
         <TableLayout
             android:id="@+id/tableLayout"

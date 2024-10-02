@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         btn0 = findViewById(R.id.btn0);
         btn0.setOnClickListener(v -> onClick(v));
-        //si pulsamos el 0 la primera vez y lo sigue otro ceronos informa que no se pueden poner dos ceros seguidos
-
 
         btn1 = findViewById(R.id.btn1);
         btn1.setOnClickListener(v -> onClick(v));
@@ -97,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 // Obtengo el texto de la pantalla
                 String screen = calScreen.getText().toString();
 
-                // Valido si el string contiene una operación válida (+, -, *, ÷) usando esta expresión regular
+// Valido si el string contiene una operación válida (+, -, *, ÷) usando esta expresión regular
                 if (!screen.matches(".*[+÷*-].*")) {
                     Toast.makeText(MainActivity.this, "Formato incorrecto", Toast.LENGTH_SHORT).show();
                     return;
@@ -132,8 +130,8 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             numbers[i - 1] = String.valueOf(result);
-                            numbers[i] = "0"; // Marco el número como procesado
-                            operators[i] = "+"; // Cambio el operador a suma para que no afecte el resultado final
+                            numbers[i] = "1"; // Marco el número como procesado
+                            operators[i] = "*"; // Cambio el operador a multiplicación para que no afecte el resultado final
                         }
                     }
 
@@ -150,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
                             case '-':
                                 finalResult -= num;
                                 break;
+                            case '*':
+                                finalResult *= num;
+                                break;
                         }
                     }
 
@@ -165,7 +166,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+     * Método que se ejecuta al hacer click en un botón de numeros y operaciones
+     */
     public void onClick(View v) {
+
+        if (calScreen.getText().length() >= 14) {
+            Toast.makeText(this, "Máximo de 14 caracteres alcanzado", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (v.getId() == btn1.getId()) {
             calScreen.append("1");
@@ -193,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (v.getId() == btnSum.getId()) {
             calScreen.append("+");
-
         } else if (v.getId() == btnRes.getId()) {
             calScreen.append("-");
         } else if (v.getId() == btnMul.getId()) {
@@ -202,8 +210,11 @@ public class MainActivity extends AppCompatActivity {
             calScreen.append("÷");
         } else if (v.getId() == btnPunto.getId()) {
             calScreen.append(".");
-        } else if (v.getId() == btnClear.getId()) {
+        }
+        if (v.getId() == btnClear.getId()) {
             calScreen.setText("");
         }
     }
-}
+
+
+        }
