@@ -18,6 +18,7 @@
 
 
         <!-- TableLayout con botones redondeados -->
+
         <TextView
             android:id="@+id/screen"
             android:layout_width="match_parent"
@@ -25,8 +26,9 @@
             android:layout_marginTop="120sp"
             android:layout_marginBottom="120sp"
             android:hint="0"
-            android:textColor="@color/white"
+            android:textColorHint="@color/darkgrey"
             android:textAlignment="textEnd"
+            android:textColor="@color/white"
             android:textSize="80dp" />
 
         <TableLayout

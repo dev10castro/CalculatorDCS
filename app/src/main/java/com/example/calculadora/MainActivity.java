@@ -1,5 +1,6 @@
 package com.example.calculadora;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,9 @@ import java.awt.font.TextAttribute;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnSum, btnRes, btnMul, btnDiv, btnPunto, btnClear;
+    private TextView calScreen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,126 +31,179 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        TextView calScreen = findViewById(R.id.screen);
+        calScreen = findViewById(R.id.screen);
 
         //creamos los botones de numeros y operaciones y les asignamos su funcion de concatenación
 
-        Button btn0 = findViewById(R.id.btn0);
-        btn0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String screen = calScreen.getText().toString();
-                if (screen.equals("0")) {
-                    Toast.makeText(MainActivity.this, "No se puede poner dos ceros seguidos", Toast.LENGTH_SHORT).show();
-                } else {
-                    calScreen.append("0");
-                }
-            }
-        });
-        //si pulsamos el 0 la primera vez y lo sigue otro cero que nos informe
-        // que no se puede poner dos ceros seguidos
+        btn0 = findViewById(R.id.btn0);
+        btn0.setOnClickListener(v -> onClick(v));
+        //si pulsamos el 0 la primera vez y lo sigue otro ceronos informa que no se pueden poner dos ceros seguidos
 
 
-        Button btn1 = findViewById(R.id.btn1);
-        btn1.setOnClickListener(v -> calScreen.append("1"));
+        btn1 = findViewById(R.id.btn1);
+        btn1.setOnClickListener(v -> onClick(v));
 
-        Button btn2 = findViewById(R.id.btn2);
-        btn2.setOnClickListener(v -> calScreen.append("2"));
+        btn2 = findViewById(R.id.btn2);
+        btn2.setOnClickListener(v -> onClick(v));
 
-        Button btn3 = findViewById(R.id.btn3);
-        btn3.setOnClickListener(v -> calScreen.append("3"));
+        btn3 = findViewById(R.id.btn3);
+        btn3.setOnClickListener(v -> onClick(v));
 
-        Button btn4 = findViewById(R.id.btn4);
-        btn4.setOnClickListener(v -> calScreen.append("4"));
+        btn4 = findViewById(R.id.btn4);
+        btn4.setOnClickListener(v -> onClick(v));
 
-        Button btn5 = findViewById(R.id.btn5);
-        btn5.setOnClickListener(v -> calScreen.append("5"));
+        btn5 = findViewById(R.id.btn5);
+        btn5.setOnClickListener(v -> onClick(v));
 
-        Button btn6 = findViewById(R.id.btn6);
-        btn6.setOnClickListener(v -> calScreen.append("6"));
+        btn6 = findViewById(R.id.btn6);
+        btn6.setOnClickListener(v -> onClick(v));
 
-        Button btn7 = findViewById(R.id.btn7);
-        btn7.setOnClickListener(v -> calScreen.append("7"));
+        btn7 = findViewById(R.id.btn7);
+        btn7.setOnClickListener(v -> onClick(v));
 
-        Button btn8 = findViewById(R.id.btn8);
-        btn8.setOnClickListener(v -> calScreen.append("8"));
+        btn8 = findViewById(R.id.btn8);
+        btn8.setOnClickListener(v -> onClick(v));
 
-        Button btn9 = findViewById(R.id.btn9);
-        btn9.setOnClickListener(v -> calScreen.append("9"));
+        btn9 = findViewById(R.id.btn9);
+        btn9.setOnClickListener(v -> onClick(v));
 
-        Button btnSum = findViewById(R.id.btnSuma);
-        btnSum.setOnClickListener(v -> calScreen.append("+"));
+        btnSum = findViewById(R.id.btnSuma);
+        btnSum.setOnClickListener(v -> onClick(v));
 
-        Button btnRes = findViewById(R.id.btnResta);
-        btnRes.setOnClickListener(v -> calScreen.append("-"));
+        btnRes = findViewById(R.id.btnResta);
+        btnRes.setOnClickListener(v -> onClick(v));
 
-        Button btnMul = findViewById(R.id.btnMultiplicacion);
-        btnMul.setOnClickListener(v -> calScreen.append("*"));
+        btnMul = findViewById(R.id.btnMultiplicacion);
+        btnMul.setOnClickListener(v -> onClick(v));
 
-        Button btnDiv = findViewById(R.id.btnDivision);
-        btnDiv.setOnClickListener(v -> calScreen.append("÷"));
+        btnDiv = findViewById(R.id.btnDivision);
+        btnDiv.setOnClickListener(v -> onClick(v));
 
-        Button btnPunto = findViewById(R.id.btnPunto);
-        btnPunto.setOnClickListener(v -> calScreen.append("."));
+        btnPunto = findViewById(R.id.btnPunto);
+        btnPunto.setOnClickListener(v -> onClick(v));
 
-        Button btnClear = findViewById(R.id.btnC);
-        btnClear.setOnClickListener(v -> calScreen.setText(""));
+        btnClear = findViewById(R.id.btnC);
+        btnClear.setOnClickListener(v -> onClick(v));
 
-
-        //boton de igual
 
         Button btnIgu = findViewById(R.id.btnIgual);
-
         btnIgu.setOnClickListener(new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View view) {
 
-                // Obtenemos el texto de la pantalla
+                // Obtengo el texto de la pantalla
                 String screen = calScreen.getText().toString();
 
-                // Validamos si el string contiene una operación válida (+, -, *, ÷)
+                // Valido si el string contiene una operación válida (+, -, *, ÷) usando esta expresión regular
                 if (!screen.matches(".*[+÷*-].*")) {
                     Toast.makeText(MainActivity.this, "Formato incorrecto", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Creamos un array para separar los números y la operación
-                String[] parts = screen.split("[+÷*-]");
+                // Creo un array para separar los números y las operaciones
+                String[] numbers = screen.split("[+÷*-]");
+                String[] operators = screen.split("[0-9.]+");
 
-                // Verificamos que tengamos exactamente dos números
-                if (parts.length != 2) {
+                // Verifico que tengamos al menos dos números y un operador
+                if (numbers.length < 2 || operators.length < 2) {
                     Toast.makeText(MainActivity.this, "Formato incorrecto", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 try {
-                    double num1 = Double.parseDouble(parts[0]);
-                    double num2 = Double.parseDouble(parts[1]);
-                    double result = 0;
+                    // Primero realizo las multiplicaciones y divisiones
+                    for (int i = 1; i < operators.length; i++) {
+                        if (operators[i].equals("*") || operators[i].equals("÷")) {
+                            double num1 = Double.parseDouble(numbers[i - 1]);
+                            double num2 = Double.parseDouble(numbers[i]);
+                            double result = 0;
 
-                    if (screen.contains("+")) {
-                        result = num1 + num2;
-                    } else if (screen.contains("-")) {
-                        result = num1 - num2;
-                    } else if (screen.contains("÷")) {
-                        if (num2 == 0) {
-                            Toast.makeText(MainActivity.this, "No se puede dividir por cero", Toast.LENGTH_SHORT).show();
-                            return;
+                            if (operators[i].equals("*")) {
+                                result = num1 * num2;
+                            } else if (operators[i].equals("÷")) {
+                                if (num2 == 0) {
+                                    Toast.makeText(MainActivity.this, "No se puede dividir por cero", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                result = num1 / num2;
+                            }
+
+                            numbers[i - 1] = String.valueOf(result);
+                            numbers[i] = "0"; // Marco el número como procesado
+                            operators[i] = "+"; // Cambio el operador a suma para que no afecte el resultado final
                         }
-                        result = num1 / num2;
-                    } else if (screen.contains("*")) {
-                        result = num1 * num2;
                     }
 
-                    // Mostramos el resultado
-                    calScreen.setText(String.valueOf(result));
+                    // Luego realizo las sumas y restas
+                    double finalResult = Double.parseDouble(numbers[0]);
+                    for (int i = 1; i < numbers.length; i++) {
+                        double num = Double.parseDouble(numbers[i]);
+                        char operator = operators[i].charAt(0);
+
+                        switch (operator) {
+                            case '+':
+                                finalResult += num;
+                                break;
+                            case '-':
+                                finalResult -= num;
+                                break;
+                        }
+                    }
+
+                    // Muestro el resultado
+                    calScreen.setText(String.valueOf(finalResult));
 
                 } catch (NumberFormatException e) {
-                    Toast.makeText(MainActivity.this, "Error de formato", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Formato incorrecto", Toast.LENGTH_SHORT).show();
                 }
             }
 
-
         });
+
+    }
+
+    public void onClick(View v) {
+
+        if (v.getId() == btn1.getId()) {
+            calScreen.append("1");
+        } else if (v.getId() == btn2.getId()) {
+            calScreen.append("2");
+        } else if (v.getId() == btn3.getId()) {
+            calScreen.append("3");
+        } else if (v.getId() == btn4.getId()) {
+            calScreen.append("4");
+        } else if (v.getId() == btn5.getId()) {
+            calScreen.append("5");
+        } else if (v.getId() == btn6.getId()) {
+            calScreen.append("6");
+        } else if (v.getId() == btn7.getId()) {
+            calScreen.append("7");
+        } else if (v.getId() == btn8.getId()) {
+            calScreen.append("8");
+        } else if (v.getId() == btn9.getId()) {
+            calScreen.append("9");
+        } else if (v.getId() == btn0.getId()) {
+            if (calScreen.getText().toString().equals("0")) {
+                Toast.makeText(this, "No se pueden poner dos ceros seguidos", Toast.LENGTH_SHORT).show();
+            } else {
+                calScreen.append("0");
+            }
+        } else if (v.getId() == btnSum.getId()) {
+            calScreen.append("+");
+
+        } else if (v.getId() == btnRes.getId()) {
+            calScreen.append("-");
+        } else if (v.getId() == btnMul.getId()) {
+            calScreen.append("*");
+        } else if (v.getId() == btnDiv.getId()) {
+            calScreen.append("÷");
+        } else if (v.getId() == btnPunto.getId()) {
+            calScreen.append(".");
+        } else if (v.getId() == btnClear.getId()) {
+            calScreen.setText("");
+        }
     }
 }
